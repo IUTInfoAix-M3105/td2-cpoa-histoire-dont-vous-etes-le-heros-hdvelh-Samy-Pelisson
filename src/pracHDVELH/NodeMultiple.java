@@ -15,11 +15,20 @@ public class NodeMultiple {
 	public static final int ERROR_STATUS_INDEX_OUT_OF_RANGE = -1;
 	public static final String ERROR_MSG_INDEX_OUT_OF_RANGE = "Index out of range";
 	public static int NODE_MAX_ARITY = 10;
+	private Object data;
+	private NodeMultiple[] daughters;
 
 	/* Overridden methods */
 	@Override
 	public String toString() {
 		/* TO BE COMPLETED */
+		StringBuilder sb = new StringBuilder();
+		sb.append(data.toString());
+		sb.append("\ndaughters : ");
+		for(int i= 0; i < NODE_MAX_ARITY; ++i){
+			sb.append(daughters[i].getData().toString());
+		}
+		return sb.toString();
 	}
 
 	/* Getters/Setters */
@@ -33,6 +42,10 @@ public class NodeMultiple {
 	 */
 	public NodeMultiple getDaughter(int i) {
 		/* TO BE COMPLETED */
+		if (i < 0 && i >=NODE_MAX_ARITY) {
+			ErrorNaiveHandler.abort();
+		}
+		return daughters[i];
 	}
 
 	/**
@@ -51,6 +64,10 @@ public class NodeMultiple {
 	 */
 	public void setDaughter(NodeMultiple daughter, int i) {
 		/* TO BE COMPLETED */
+		if (i < 0 && i >=NODE_MAX_ARITY) {
+			ErrorNaiveHandler.abort();
+		}
+		daughters[i] = daughter;
 	}
 
 	/**
@@ -58,6 +75,7 @@ public class NodeMultiple {
 	 */
 	public NodeMultiple[] getDaughters() {
 		/* TO BE COMPLETED */
+		return daughters;
 	}
 
 	/**
@@ -65,6 +83,7 @@ public class NodeMultiple {
 	 */
 	public void setDaughters(NodeMultiple[] daughters) {
 		/* TO BE COMPLETED */
+		this.daughters = daughters;
 	}
 
 	/**
@@ -77,6 +96,12 @@ public class NodeMultiple {
 	 */
 	public void addDaughter(NodeMultiple daughter) {
 		/* TO BE COMPLETED */
+		if (daughter == null){return;};
+		int i = 0;
+		while (i < NODE_MAX_ARITY && daughters[i] != null){i++;};
+		if(i < NODE_MAX_ARITY ){
+			daughters[i] = daughter;
+		}
 	}
 
 	/**
@@ -84,6 +109,7 @@ public class NodeMultiple {
 	 */
 	public Object getData() {
 		/* TO BE COMPLETED */
+		return data;
 	}
 
 	/**
@@ -99,6 +125,11 @@ public class NodeMultiple {
 	 */
 	public boolean hasDaughters() {
 		/* TO BE COMPLETED */
+		int i = 0;
+		while (i < NODE_MAX_ARITY && daughters[i] == null){
+			i++;
+		}
+		return i < NODE_MAX_ARITY ? true : false;
 	}
 
 	/* Constructors */
@@ -107,6 +138,8 @@ public class NodeMultiple {
 	 */
 	public NodeMultiple() {
 		/* TO BE COMPLETED */
+		//data = null;
+		daughters = new  NodeMultiple[NODE_MAX_ARITY];
 	}
 
 	/**
@@ -117,6 +150,9 @@ public class NodeMultiple {
 	 */
 	public NodeMultiple(Object data) {
 		/* TO BE COMPLETED */
+		this();
+		this.data = data;
+	}
 }
 
 // eof

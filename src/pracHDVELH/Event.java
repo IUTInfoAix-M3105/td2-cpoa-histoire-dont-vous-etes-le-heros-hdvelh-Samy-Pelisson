@@ -18,6 +18,12 @@ public class Event extends NodeMultiple {
 	public static final String PROMPT_ANSWER = "Answer: ";
 	public static final String WARNING_MSG_INTEGER_EXPECTED = "Please input a integer within range!";
 
+	/*Constructeur surchargé*/
+	public Event(String data) {
+		super(data);
+	}
+
+
 	/**
 	 * @return the playerAnswer
 	 */
