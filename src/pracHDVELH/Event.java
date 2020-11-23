@@ -103,6 +103,7 @@ public class Event extends NodeMultiple {
 	@Override
 	public Event getDaughter(int i) {
 		/* TO BE COMPLETED */
+		return getDaughters()[i];
 	}
 
 	/**
@@ -112,6 +113,7 @@ public class Event extends NodeMultiple {
 	 */
 	public void setDaughter(Event daughter, int i) {
 		/* TO BE COMPLETED */
+
 	}
 
 	/**
@@ -119,6 +121,7 @@ public class Event extends NodeMultiple {
 	 */
 	public GUIManager getGui() {
 		/* TO BE COMPLETED */
+		return  gui;
 	}
 
 	/**
@@ -126,6 +129,7 @@ public class Event extends NodeMultiple {
 	 */
 	public void setGui(GUIManager gui) {
 		/* TO BE COMPLETED */
+		this.gui = gui;
 	}
 
 	/**
@@ -133,14 +137,39 @@ public class Event extends NodeMultiple {
 	 */
 	public int getId() {
 		/* TO BE COMPLETED */
+		return id;
 	}
 
 	/* Methods */
 	/* TO BE COMPLETED */
 	}
 
+	public boolean isInRange(int index){
+		if(index < 0 || index >= getDaughters().length){
+			return false;
+		}
+		int i = 0;
+		while(i < getDaughters().length && getDaughters()[i] != null){
+			i++;
+		}
+		return index < i;
+	}
+
 	public int interpretAnswer(String answer) {
-		
+
+		if(answer == null){
+			ErrorNaiveHandler.abort("String is null");
+		}
+
+
+		while(answer.isEmpty()||!answer.matches("[0-9]")|| !isInRange(Integer.parseInt(answer))) {
+			gui.outputln(WARNING_MSG_INTEGER_EXPECTED);
+			gui.output(PROMPT_ANSWER);
+			answer = reader.next();
+		}
+		int answerInt = Integer.parseInt(answer);
+		return answerInt;
+
 	}
 
 	public Event run() {
